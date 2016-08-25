@@ -27,8 +27,8 @@ module.exports = exports = function(webot){
     handler: function(info){
       var reply = {
         title: '感谢你收听AkashiBot',
-        pic: 'https://raw.github.com/node-webot/webot-example/master/qrcode.jpg',
-        url: 'https://github.com/node-webot/webot-example',
+        pic: 'https://raw.githubusercontent.com/sherryxiao1988/akashibot/master/qrcode.jpg',
+        url: 'https://github.com/sherryxiao1988/akashibot',
         description: [
           '你可以试试以下指令:',
             'game : 玩玩猜数字的游戏吧',
