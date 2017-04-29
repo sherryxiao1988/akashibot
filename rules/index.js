@@ -15,6 +15,15 @@ var package_info = require('../package.json');
  * 初始化路由规则
  */
 module.exports = exports = function(webot){
+  webot.set('voice msg', {
+    pattern: function(info) {
+      return info.type === 'voice';
+    },
+    handler: function(info) {
+      return info.text;
+    }
+  })
+
   var reg_help = /^(help|\?)$/i
   webot.set({
     // name 和 description 都不是必须的
