@@ -28,7 +28,7 @@ module.exports = exports = function(webot){
   webot.beforeReply(function(info, next) {
     nlp.sentiment(info.text, function(data) {
       data = JSON.parse(data)[0];
-      info.sentiment = '[:正面' + data[0] + ', 负面:' + data[1] + ']';
+      info.sentiment = '[正面' + data[0] + ', 负面:' + data[1] + ']';
       next();
     })
   });
@@ -43,7 +43,7 @@ module.exports = exports = function(webot){
         info.text,
         '句子中的权重和关键词分别是：',
         info.keyWords,
-        '句子中的情感是',
+        '句子中的情感是:',
         info.sentiment,
       ].join('\n');
 
