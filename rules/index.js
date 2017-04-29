@@ -28,7 +28,7 @@ module.exports = exports = function(webot){
   webot.beforeReply(function(info, next) {
     nlp.sentiment(info.text, function(data) {
       data = JSON.parse(data)[0];
-      info.sentiment = '[正面' + data[0] + ', 负面:' + data[1] + ']';
+      info.sentiment = '[正面:' + data[0] + ', 负面:' + data[1] + ']';
       next();
     })
   });
