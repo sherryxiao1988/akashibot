@@ -10,17 +10,44 @@ var search = require('../lib/support').search;
 var geo2loc = require('../lib/support').geo2loc;
 
 var package_info = require('../package.json');
+var bosonnlp = require('bosonnlp');
+
+var nlp = new bosonnlp.BosonNLP('hOiKsXn9.14663.Nz4W9rKxNVEO');
 
 /**
  * 初始化路由规则
  */
 module.exports = exports = function(webot){
+  webot.beforeReply(function(info, next) {
+    nlp.extractKeywords(info.text, function(data) {
+      info.keyWords = data;
+      next();
+    })
+  });
+
+  webot.beforeReply(function(info, next) {
+    nlp.sentiment(info.text, function(data) {
+      data = JSON.parse(data)[0];
+      info.sentiment = '[:正面' + data[0] + ', 负面:' + data[1] + ']';
+      next();
+    })
+  });
+
   webot.set('voice msg', {
     pattern: function(info) {
       return info.type === 'voice';
     },
     handler: function(info) {
-      return info.text;
+      var ret = [
+        '您说的是：',
+        info.text,
+        '句子中的权重和关键词分别是：',
+        info.keyWords,
+        '句子中的情感是',
+        info.sentiment,
+      ].join('\n');
+
+      return ret;
     }
   })
 
