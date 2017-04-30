@@ -22,6 +22,7 @@ module.exports = exports = function(webot){
     if(info.type === 'voice') {
       nlp.extractKeywords(info.text, function(data) {
         info.keyWords = data;
+        next();
       })
     }
     next();
@@ -32,6 +33,7 @@ module.exports = exports = function(webot){
       nlp.sentiment(info.text, function(data) {
         data = JSON.parse(data)[0];
         info.sentiment = '[正面:' + data[0] + ', 负面:' + data[1] + ']';
+        next();
       })
      }
     next();
