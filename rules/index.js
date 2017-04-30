@@ -19,18 +19,22 @@ var nlp = new bosonnlp.BosonNLP('hOiKsXn9.14663.Nz4W9rKxNVEO');
  */
 module.exports = exports = function(webot){
   webot.beforeReply(function(info, next) {
-    nlp.extractKeywords(info.text, function(data) {
-      info.keyWords = data;
-      next();
-    })
+    if(info.type === 'voice') {
+      nlp.extractKeywords(info.text, function(data) {
+        info.keyWords = data;
+      })
+    }
+    next();
   });
 
   webot.beforeReply(function(info, next) {
-    nlp.sentiment(info.text, function(data) {
-      data = JSON.parse(data)[0];
-      info.sentiment = '[正面:' + data[0] + ', 负面:' + data[1] + ']';
-      next();
-    })
+    if(info.type === 'voice') {
+      nlp.sentiment(info.text, function(data) {
+        data = JSON.parse(data)[0];
+        info.sentiment = '[正面:' + data[0] + ', 负面:' + data[1] + ']';
+      })
+     }
+    next();
   });
 
   webot.set('voice msg', {
