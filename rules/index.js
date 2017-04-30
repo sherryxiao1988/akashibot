@@ -24,8 +24,9 @@ module.exports = exports = function(webot){
         info.keyWords = data;
         next();
       })
+    } else {
+      next();
     }
-    next();
   });
 
   webot.beforeReply(function(info, next) {
@@ -35,8 +36,9 @@ module.exports = exports = function(webot){
         info.sentiment = '[正面:' + data[0] + ', 负面:' + data[1] + ']';
         next();
       })
-     }
-    next();
+    } else {
+      next();
+    }
   });
 
   webot.set('voice msg', {
